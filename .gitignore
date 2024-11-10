@@ -31,7 +31,7 @@ Thumbs.db
 
 # Coverage reports
 coverage/
-
+reviews.json
 weighty-gasket-439803-e3-d4f3b77470b8.json
 # Lint and formatting cache
 .eslintcache

@@ -51,6 +51,7 @@ app.post('/video/ratings_reviews', express.json(), (req, res) => {
   const { url } = req.query;
   const { rating, content } = req.body;
 
+  const videoId = extractVideoId(url);
   // 입력값 검증
   if (!url) {
     return res.status(400).json({ error: '비디오 URL이 필요합니다.' });
@@ -69,7 +70,7 @@ app.post('/video/ratings_reviews', express.json(), (req, res) => {
 
   // 새 데이터 추가
   const newReview = {
-    url,
+    videoId,
     rating,
     content,
     createdAt: new Date().toISOString(),
@@ -129,11 +130,11 @@ app.get('/video/reviews/summary', async (req, res) => {
   if (!url) {
     return res.status(400).json({ error: '비디오 URL이 필요합니다.' });
   }
-
+  const videoId = extractVideoId(url);
   try {
     // 기존 데이터 가져오기
     const reviews = readDataFromFile(DATA_FILE);
-    const videoReviews = reviews.filter((review) => review.url === url);
+    const videoReviews = reviews.filter((review) => review.videoId === videoId);
 
     if (videoReviews.length === 0) {
       return res.status(404).json({ error: '해당 비디오에 대한 리뷰가 없습니다.' });
