@@ -104,7 +104,7 @@ app.get('/video/ratings/mean', async (req, res) => {
     const title = videoData.snippet.title;
     // 2. reviews.json 파일에서 해당 영상의 평균 평점 계산
     const reviews = readDataFromFile(DATA_FILE);
-    const videoReviews = reviews.filter((review) => review.url === url);
+    const videoReviews = reviews.filter((review) => review.videoId === videoId);
     // 평균 평점 계산
     const averageRating =
       videoReviews.length > 0
